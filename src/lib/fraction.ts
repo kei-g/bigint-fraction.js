@@ -251,6 +251,52 @@ export class Fraction implements FractionLike, Reducible {
   }
 
   /**
+   * asynchronously multiply a fraction to this fraction
+   * @param {Fraction | FractionLike | bigint | number} valueOrNumerator fraction or numerator
+   * @param {bigint | number} denominator denominator if 'valueOrNumerator' is not fraction, and default to 1
+   * @returns {Promise<void>} promise
+   */
+  async multiplyAsync(
+    valueOrNumerator: FractionLike | Integer,
+    denominator?: Integer,
+  ): Promise<void> {
+    const f = valueOrNumerator
+    if (isFractionLike(f)) {
+      delete this._irreducible
+      const [d, n] = await Promise.all([
+        { a: this._denominator, b: f.denominator },
+        { a: this._numerator, b: f.numerator }
+      ].map(
+        (ctx: { a: bigint, b: bigint }) =>
+          new Promise(
+            (resolve: (value: bigint) => void) =>
+              resolve(ctx.a * ctx.b)
+          )
+      ))
+      this._denominator = d
+      this._numerator = n
+    }
+    else {
+      const numerator = BigInt(f)
+      switch (typeof denominator) {
+        case 'bigint':
+        case 'number':
+          await this.multiplyAsync(
+            new Fraction(numerator, denominator)
+          )
+          break
+        case 'undefined':
+          delete this._irreducible
+          this._numerator *= numerator
+          await Promise.resolve()
+          break
+        default:
+          await Promise.reject(new Error('illegal denominator type'))
+      }
+    }
+  }
+
+  /**
    * numerator
    * @type {bigint}
    */

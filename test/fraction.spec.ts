@@ -194,6 +194,62 @@ describe('multiply', () => {
   })
 })
 
+describe('multiplyAsync', () => {
+  it('2 * Fraction(1/2) = 1', async () => {
+    const a = new Fraction(2)
+    expect(a.denominator).to.eq(1n)
+    expect(a.numerator).to.eq(2n)
+    await a.multiplyAsync(new Fraction(1, 2))
+    expect(a.isIrreducible).to.be.false
+    await a.reduceAsync((gcd: bigint) => gcd)
+    expect(a.denominator).to.eq(1n)
+    expect(a.numerator).to.eq(1n)
+  })
+  it('2 * 1/2 = 1', async () => {
+    const a = new Fraction(2)
+    expect(a.denominator).to.eq(1n)
+    expect(a.numerator).to.eq(2n)
+    await a.multiplyAsync(1, 2)
+    expect(a.isIrreducible).to.be.false
+    await a.reduceAsync((gcd: bigint) => gcd)
+    expect(a.denominator).to.eq(1n)
+    expect(a.numerator).to.eq(1n)
+  })
+  it('2 * 1/2n = 1', async () => {
+    const a = new Fraction(2)
+    expect(a.denominator).to.eq(1n)
+    expect(a.numerator).to.eq(2n)
+    await a.multiplyAsync(1, 2n)
+    expect(a.isIrreducible).to.be.false
+    await a.reduceAsync((gcd: bigint) => gcd)
+    expect(a.denominator).to.eq(1n)
+    expect(a.numerator).to.eq(1n)
+  })
+  it('3/5 * 2 = 6/5', async () => {
+    const a = new Fraction(3, 5)
+    expect(a.denominator).to.eq(5n)
+    expect(a.numerator).to.eq(3n)
+    await a.multiplyAsync(2)
+    expect(a.denominator).to.eq(5n)
+    expect(a.numerator).to.eq(6n)
+  })
+  it('1 * 1/\'1\' throws an error', async () => {
+    const a = new Fraction(1)
+    expect(a.denominator).to.eq(1n)
+    expect(a.numerator).to.eq(1n)
+    let caught = false
+    await a.multiplyAsync(1, '1' as unknown as bigint)
+      .catch((err: unknown) => {
+        expect(err).to.be.instanceOf(Error)
+        if (err instanceof Error) {
+          expect(err.message).to.be.a.string('illegal denominator type')
+          caught = true
+        }
+      })
+    expect(caught).to.be.true
+  })
+})
+
 describe('reduce', () => {
   it('evaluate Irreducible', async () => {
     const a = new Fraction(8, 5)
