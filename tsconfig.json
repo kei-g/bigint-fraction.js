@@ -27,7 +27,7 @@
   },
   "files": [
     "src/index.ts",
-    "src/lib/euclidian.ts",
+    "src/lib/euclidean.ts",
     "src/lib/fraction.ts",
   ],
 }

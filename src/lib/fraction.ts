@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { Euclidian } from './euclidian'
+import { Euclidean } from './euclidean'
 
 /**
  * fraction
@@ -76,7 +76,7 @@ export class Fraction implements FractionLike, Reducible {
   ): void {
     const f = valueOrNumerator
     if (isFractionLike(f)) {
-      const gcd = Euclidian.GCD(this._denominator, f.denominator)
+      const gcd = Euclidean.GCD(this._denominator, f.denominator)
       const lcm = this._denominator * f.denominator / gcd
       const lhs = this._numerator * f.denominator / gcd
       const rhs = this._denominator * f.numerator / gcd
@@ -123,7 +123,7 @@ export class Fraction implements FractionLike, Reducible {
   ): Promise<void> {
     const f = valueOrNumerator
     if (isFractionLike(f)) {
-      const gcd = await Euclidian.GCDAsync(this._denominator, f.denominator)
+      const gcd = await Euclidean.GCDAsync(this._denominator, f.denominator)
       const [lcm, lhs, rhs] = await Promise.all([
         { a: this._denominator, b: f.denominator },
         { a: this._numerator, b: f.denominator },
@@ -224,7 +224,7 @@ export class Fraction implements FractionLike, Reducible {
    */
   get isIrreducible(): boolean {
     if (this._irreducible === undefined) {
-      const gcd = Euclidian.GCD(this._denominator, this._numerator)
+      const gcd = Euclidean.GCD(this._denominator, this._numerator)
       this._irreducible = gcd === 1n
     }
     return this._irreducible
@@ -332,7 +332,7 @@ export class Fraction implements FractionLike, Reducible {
   reduce<T>(
     cb?: (gcd: bigint) => T,
   ): Irreducible | T {
-    const gcd = Euclidian.GCD(this._denominator, this._numerator)
+    const gcd = Euclidean.GCD(this._denominator, this._numerator)
     if (!gcd || gcd === 1n) {
       this._irreducible = true
       return Irreducible.TheInstance
@@ -355,7 +355,7 @@ export class Fraction implements FractionLike, Reducible {
   async reduceAsync<T>(
     cb: ReduceAsyncCallback<T>,
   ): Promise<Irreducible | T> {
-    const gcd = await Euclidian.GCDAsync(this._denominator, this._numerator)
+    const gcd = await Euclidean.GCDAsync(this._denominator, this._numerator)
     if (!gcd || gcd === 1n) {
       this._irreducible = true
       return Promise.resolve(Irreducible.TheInstance)

@@ -17,7 +17,7 @@ namespace BigInt {
 /**
  * euclidian utilities
  */
-export namespace Euclidian {
+export namespace Euclidean {
   /**
    * compute a greatest common divisor between two arguments
    * @param {bigint} a first argument

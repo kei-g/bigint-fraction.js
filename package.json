@@ -76,7 +76,7 @@
     "postpublish": "run-s clean",
     "prepublishOnly": "run-s build",
     "start": "ts-node src/index.ts",
-    "terse:euclidian": "terser build/lib/euclidian.js -c -m -o lib/euclidian.js --toplevel",
+    "terse:euclidean": "terser build/lib/euclidean.js -c -m -o lib/euclidean.js --toplevel",
     "terse:fraction": "terser build/lib/fraction.js -c -m -o lib/fraction.js --toplevel",
     "terse:index": "terser build/index.js -c -m -o index.js --toplevel",
     "test": "run-p cover lint"
