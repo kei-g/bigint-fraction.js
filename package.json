@@ -75,5 +75,5 @@
     "terse:index": "terser build/index.js -c -m -o index.js --toplevel",
     "test": "run-p cover lint"
   },
-  "version": "1.0.0"
+  "version": "1.0.1"
 }
