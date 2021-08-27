@@ -201,6 +201,24 @@ export class Fraction implements FractionLike, Reducible {
   }
 
   /**
+   * asynchronously divide this fraction by a fraction
+   * @param {Fraction | FractionLike | bigint | number} valueOrNumerator fraction or numerator
+   * @param {bigint | number} denominator denominator if 'valueOrNumerator' is not fraction, and default to 1
+   */
+  async divideAsync(
+    valueOrNumerator: FractionLike | Integer,
+    denominator?: Integer,
+  ): Promise<void> {
+    const f = valueOrNumerator
+    if (isFractionLike(f))
+      await this.multiplyAsync(new Fraction(f.denominator, f.numerator))
+    else {
+      const numerator = f
+      await this.multiplyAsync(new Fraction(denominator ?? 1, numerator))
+    }
+  }
+
+  /**
    * determine whether if this fraction is irreducible
    * @type {boolean}
    */

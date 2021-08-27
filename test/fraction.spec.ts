@@ -134,6 +134,25 @@ describe('divide', () => {
   })
 })
 
+describe('divideAsync', () => {
+  it('1 / 2 = 1/2', async () => {
+    const a = new Fraction(1)
+    expect(a.denominator).to.eq(1n)
+    expect(a.numerator).to.eq(1n)
+    await a.divideAsync(2)
+    expect(a.denominator).to.eq(2n)
+    expect(a.numerator).to.eq(1n)
+  })
+  it('1 / 1/2 = 2', async () => {
+    const a = new Fraction(1)
+    expect(a.denominator).to.eq(1n)
+    expect(a.numerator).to.eq(1n)
+    await a.divideAsync(new Fraction(1, 2))
+    expect(a.denominator).to.eq(1n)
+    expect(a.numerator).to.eq(2n)
+  })
+})
+
 describe('isIrreducible', () => {
   const a = new Fraction(5, 3)
   it('5/3 is irreducible', () => {
