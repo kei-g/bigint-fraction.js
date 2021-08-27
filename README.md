@@ -1,6 +1,6 @@
 # bigint-fraction [![License][license-image]][license-url] [![Dependency][depencency-image]][dependency-url] [![GitHub][github-test-image]][github-url] [![npm][npm-image]][npm-url]
 
-[![maintenance][maintenance-image]][npmsio-url] [![quality][quality-image]][npmsio-url]
+[![coverage][nyc-cov-image]][github-url] [![maintenance][maintenance-image]][npmsio-url] [![quality][quality-image]][npmsio-url]
 
 Fraction composed of bigint
 
@@ -14,4 +14,5 @@ Fraction composed of bigint
 [npm-image]:https://img.shields.io/npm/v/bigint-fraction.svg?logo=npm
 [npm-url]:https://npmjs.org/package/bigint-fraction
 [npmsio-url]:https://npms.io/search?q=bigint-fraction
+[nyc-cov-image]:https://img.shields.io/nycrc/kei-g/bigint-fraction.js?config=.nycrc.json&label=coverage
 [quality-image]:https://img.shields.io/npms-io/quality-score/bigint-fraction?logo=npm
