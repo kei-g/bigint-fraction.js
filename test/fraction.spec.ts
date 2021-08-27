@@ -220,3 +220,30 @@ describe('subtract', () => {
     expect(a.numerator).to.eq(-1n)
   })
 })
+
+describe('subtractAsync', () => {
+  it('1 - 1/2 = 1/2', async () => {
+    const a = new Fraction(1)
+    expect(a.denominator).to.eq(1n)
+    expect(a.numerator).to.eq(1n)
+    await a.subtractAsync(1, 2)
+    expect(a.denominator).to.eq(2n)
+    expect(a.numerator).to.eq(1n)
+  })
+  it('1/3 - Fraction(1/2) = -1/6', async () => {
+    const a = new Fraction(1, 3)
+    expect(a.denominator).to.eq(3n)
+    expect(a.numerator).to.eq(1n)
+    await a.subtractAsync(new Fraction(1, 2))
+    expect(a.denominator).to.eq(6n)
+    expect(a.numerator).to.eq(-1n)
+  })
+  it('1/2 - FractionLike(1/3) = 1/6', async () => {
+    const a = new Fraction(1, 2)
+    expect(a.denominator).to.eq(2n)
+    expect(a.numerator).to.eq(1n)
+    await a.subtractAsync({ denominator: 3n, numerator: 1n })
+    expect(a.denominator).to.eq(6n)
+    expect(a.numerator).to.eq(1n)
+  })
+})

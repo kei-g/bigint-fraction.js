@@ -329,6 +329,28 @@ export class Fraction implements FractionLike, Reducible {
       this.add(-numerator, denominator)
     }
   }
+
+  /**
+   * asynchronously subtract a fraction from this fraction
+   * @param {Fraction | FractionLike | bigint | number} valueOrNumerator fraction or numerator
+   * @param {bigint | number} denominator denominator if 'valueOrNumerator' is not fraction, and default to 1
+   * @returns {Promise<void>} promise
+   */
+  async subtractAsync(
+    valueOrNumerator: FractionLike | Integer,
+    denominator?: Integer,
+  ): Promise<void> {
+    const f = valueOrNumerator
+    if (isFractionLike(f)) {
+      const c = f instanceof Fraction ? f.clone() : new Fraction(f)
+      c._numerator = -c._numerator
+      await this.addAsync(c)
+    }
+    else {
+      const numerator = f
+      await this.addAsync(-numerator, denominator)
+    }
+  }
 }
 
 /**
