@@ -147,11 +147,31 @@ describe('isIrreducible', () => {
 })
 
 describe('multiply', () => {
-  it('2 * 1/2 = 1', () => {
+  it('2 * Fraction(1/2) = 1', () => {
     const a = new Fraction(2)
     expect(a.denominator).to.eq(1n)
     expect(a.numerator).to.eq(2n)
     a.multiply(new Fraction(1, 2))
+    expect(a.isIrreducible).to.be.false
+    a.reduce()
+    expect(a.denominator).to.eq(1n)
+    expect(a.numerator).to.eq(1n)
+  })
+  it('2 * 1/2 = 1', () => {
+    const a = new Fraction(2)
+    expect(a.denominator).to.eq(1n)
+    expect(a.numerator).to.eq(2n)
+    a.multiply(1, 2)
+    expect(a.isIrreducible).to.be.false
+    a.reduce()
+    expect(a.denominator).to.eq(1n)
+    expect(a.numerator).to.eq(1n)
+  })
+  it('2 * 1/2n = 1', () => {
+    const a = new Fraction(2)
+    expect(a.denominator).to.eq(1n)
+    expect(a.numerator).to.eq(2n)
+    a.multiply(1, 2n)
     expect(a.isIrreducible).to.be.false
     a.reduce()
     expect(a.denominator).to.eq(1n)

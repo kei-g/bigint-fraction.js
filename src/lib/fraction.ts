@@ -193,10 +193,10 @@ export class Fraction implements FractionLike, Reducible {
   ): void {
     const f = valueOrNumerator
     if (isFractionLike(f))
-      this.multiply(f.denominator, f.numerator)
+      this.multiply(new Fraction(f.denominator, f.numerator))
     else {
       const numerator = f
-      this.multiply(denominator ?? 1, numerator)
+      this.multiply(new Fraction(denominator ?? 1, numerator))
     }
   }
 
