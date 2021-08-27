@@ -189,7 +189,7 @@ describe('multiply', () => {
     const a = new Fraction(1)
     expect(a.denominator).to.eq(1n)
     expect(a.numerator).to.eq(1n)
-    expect(() => a.multiply(1, '1' as undefined as bigint))
+    expect(() => a.multiply(1, '1' as unknown as bigint))
       .to.throw('illegal denominator type')
   })
 })
