@@ -322,8 +322,11 @@ export class Fraction implements FractionLike, Reducible {
     denominator?: Integer,
   ): void {
     const f = valueOrNumerator
-    if (isFractionLike(f))
-      this.add(-f.numerator, f.denominator)
+    if (isFractionLike(f)) {
+      const c = f instanceof Fraction ? f.clone() : new Fraction(f)
+      c._numerator = -c._numerator
+      this.add(c)
+    }
     else {
       const numerator = f
       this.add(-numerator, denominator)

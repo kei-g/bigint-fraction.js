@@ -211,13 +211,21 @@ describe('subtract', () => {
     expect(a.denominator).to.eq(2n)
     expect(a.numerator).to.eq(1n)
   })
-  it('1/3 - 1/2 = -1/6', () => {
+  it('1/3 - Fraction(1/2) = -1/6', () => {
     const a = new Fraction(1, 3)
     expect(a.denominator).to.eq(3n)
     expect(a.numerator).to.eq(1n)
     a.subtract(new Fraction(1, 2))
     expect(a.denominator).to.eq(6n)
     expect(a.numerator).to.eq(-1n)
+  })
+  it('1/2 - FractionLike(1/3) = 1/6', () => {
+    const a = new Fraction(1, 2)
+    expect(a.denominator).to.eq(2n)
+    expect(a.numerator).to.eq(1n)
+    a.subtract({ denominator: 3n, numerator: 1n })
+    expect(a.denominator).to.eq(6n)
+    expect(a.numerator).to.eq(1n)
   })
 })
 
