@@ -3,6 +3,12 @@ import { describe, it } from 'mocha'
 import { expect } from 'chai'
 
 describe('euclidian', () => {
+  it('async gcd(11, 0)', async () =>
+    expect(await Euclidian.GCDAsync(11n, 0n)).to.eq(0n)
+  )
+  it('async gcd(12, 15)', async () =>
+    expect(await Euclidian.GCDAsync(12n, 15n)).to.eq(3n)
+  )
   it('gcd(6, 9) === 3', () =>
     expect(Euclidian.GCD(6n, 9n)).to.eq(3n)
   )

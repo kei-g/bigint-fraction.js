@@ -20,9 +20,9 @@ namespace BigInt {
 export namespace Euclidian {
   /**
    * compute a greatest common divisor between two arguments
-   * @param a first argument
-   * @param b second argument
-   * @returns a greatest common divisor of `a` and `b`
+   * @param {bigint} a first argument
+   * @param {bigint} b second argument
+   * @returns {bigint} a greatest common divisor of `a` and `b`
    */
   export const GCD = (a: bigint, b: bigint): bigint => {
     if (a === 0n || b === 0n)
@@ -35,4 +35,26 @@ export namespace Euclidian {
     }
     return m
   }
+
+  /**
+   * asynchronously compute a greatest common divisor between two arguments
+   * @param {bigint} a first argument
+   * @param {bigint} b second argument
+   * @returns {Promise<bigint>} a greatest common divisor of `a` and `b`
+   */
+  export const GCDAsync =
+    (a: bigint, b: bigint): Promise<bigint> =>
+      a === 0n || b === 0n
+        ? Promise.resolve(0n)
+        : new Promise(
+          (resolve: (value: bigint) => void) => {
+            let [m, n] = [a, b].map(BigInt.abs)
+            while (n) {
+              const r = m % n
+              m = n
+              n = r
+            }
+            resolve(m)
+          }
+        )
 }
