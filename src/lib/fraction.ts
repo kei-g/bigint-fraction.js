@@ -112,6 +112,61 @@ export class Fraction implements FractionLike, Reducible {
   }
 
   /**
+   * asynchronously add a fraction to this fraction
+   * @param {Fraction | FractionLike | bigint | number} valueOrNumerator fraction or numerator
+   * @param {bigint | number} denominator denominator if 'valueOrNumerator' is not fraction, and default to 1
+   * @returns {Promise<void>} promise
+   */
+  async addAsync(
+    valueOrNumerator: FractionLike | Integer,
+    denominator?: Integer,
+  ): Promise<void> {
+    const f = valueOrNumerator
+    if (isFractionLike(f)) {
+      const gcd = await Euclidian.GCDAsync(this._denominator, f.denominator)
+      const [lcm, lhs, rhs] = await Promise.all([
+        { a: this._denominator, b: f.denominator },
+        { a: this._numerator, b: f.denominator },
+        { a: this._denominator, b: f.numerator },
+      ].map(
+        (ctx: { a: bigint, b: bigint }) =>
+          new Promise(
+            (resolve: (value: bigint) => void) =>
+              resolve(ctx.a * ctx.b / gcd)
+          )
+      ))
+      delete this._irreducible
+      this._denominator = lcm
+      this._numerator = lhs + rhs
+    }
+    else {
+      const numerator = f
+      switch (typeof denominator) {
+        case 'bigint':
+          await this.addAsync({
+            denominator,
+            numerator: BigInt(numerator)
+          })
+          break
+        case 'number':
+          await this.addAsync({
+            denominator: BigInt(denominator),
+            numerator: BigInt(numerator),
+          })
+          break
+        case 'undefined':
+          await this.addAsync({
+            denominator: 1n,
+            numerator: BigInt(numerator),
+          })
+          break
+        default:
+          await Promise.reject(new Error('illegal denominator type'))
+      }
+    }
+  }
+
+  /**
    * get a clone of this fraction
    * @returns cloned instance
    */
@@ -236,7 +291,7 @@ export class Fraction implements FractionLike, Reducible {
   async reduceAsync<T>(
     cb: ReduceAsyncCallback<T>,
   ): Promise<Irreducible | T> {
-    const gcd = Euclidian.GCD(this._denominator, this._numerator)
+    const gcd = await Euclidian.GCDAsync(this._denominator, this._numerator)
     if (!gcd || gcd === 1n) {
       this._irreducible = true
       return Promise.resolve(Irreducible.TheInstance)

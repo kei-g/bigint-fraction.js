@@ -36,6 +36,48 @@ describe('add', () => {
   })
 })
 
+describe('addAsync', () => {
+  it('0 + 1 = 1', async () => {
+    const a = new Fraction()
+    expect(a.denominator).to.eq(1n)
+    expect(a.numerator).to.eq(0n)
+    await a.addAsync(1)
+    expect(a.denominator).to.eq(1n)
+    expect(a.numerator).to.eq(1n)
+  })
+  it('1/2 + 1/3 = 5/6', async () => {
+    const a = new Fraction(1, 2)
+    expect(a.denominator).to.eq(2n)
+    expect(a.numerator).to.eq(1n)
+    await a.addAsync(1, 3)
+    expect(a.denominator).to.eq(6n)
+    expect(a.numerator).to.eq(5n)
+  })
+  it('1/2 + 1/3n = 5/6', async () => {
+    const a = new Fraction(1, 2)
+    expect(a.denominator).to.eq(2n)
+    expect(a.numerator).to.eq(1n)
+    await a.addAsync(1, 3n)
+    expect(a.denominator).to.eq(6n)
+    expect(a.numerator).to.eq(5n)
+  })
+  it('0 + 1/\'1\' throws an error', async () => {
+    const a = new Fraction()
+    expect(a.denominator).to.eq(1n)
+    expect(a.numerator).to.eq(0n)
+    let caught = false
+    await a.addAsync(0, '1' as unknown as bigint)
+      .catch((err: unknown) => {
+        expect(err).to.be.instanceOf(Error)
+        if (err instanceof Error) {
+          expect(err.message).to.be.a.string('illegal denominator type')
+          caught = true
+        }
+      })
+    expect(caught).to.be.true
+  })
+})
+
 describe('constructor', () => {
   it('clone', () => {
     const a = new Fraction()
