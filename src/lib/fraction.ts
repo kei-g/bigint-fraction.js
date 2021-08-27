@@ -214,16 +214,16 @@ export class Fraction implements FractionLike, Reducible {
     cb?: (gcd: bigint) => T,
   ): Irreducible | T {
     const gcd = Euclidian.GCD(this._denominator, this._numerator)
-    if (gcd && gcd !== 1n) {
-      delete this._irreducible
-      const result = cb ? cb(gcd) : undefined
+    if (!gcd || gcd === 1n) {
       this._irreducible = true
-      this._denominator /= gcd
-      this._numerator /= gcd
-      return result
+      return Irreducible.TheInstance
     }
+    delete this._irreducible
+    const result = cb ? cb(gcd) : undefined
     this._irreducible = true
-    return Irreducible.TheInstance
+    this._denominator /= gcd
+    this._numerator /= gcd
+    return result
   }
 
   /**
@@ -237,24 +237,24 @@ export class Fraction implements FractionLike, Reducible {
     cb: ReduceAsyncCallback<T>,
   ): Promise<Irreducible | T> {
     const gcd = Euclidian.GCD(this._denominator, this._numerator)
-    if (gcd && gcd !== 1n) {
-      delete this._irreducible
-      const [result] = await Promise.all([
-        cb(gcd),
-        new Promise(
-          (resolve: (value: bigint) => void) =>
-            resolve(this._denominator /= gcd)
-        ),
-        new Promise(
-          (resolve: (value: bigint) => void) =>
-            resolve(this._numerator /= gcd)
-        ),
-      ])
+    if (!gcd || gcd === 1n) {
       this._irreducible = true
-      return result
+      return Promise.resolve(Irreducible.TheInstance)
     }
+    delete this._irreducible
+    const [result] = await Promise.all([
+      cb(gcd),
+      new Promise(
+        (resolve: (value: bigint) => void) =>
+          resolve(this._denominator /= gcd)
+      ),
+      new Promise(
+        (resolve: (value: bigint) => void) =>
+          resolve(this._numerator /= gcd)
+      ),
+    ])
     this._irreducible = true
-    return Promise.resolve(Irreducible.TheInstance)
+    return result
   }
 
   /**
