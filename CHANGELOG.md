@@ -8,6 +8,7 @@
 - :construction: Comments for JSDoc are updating
 - :rotating_light: Comments for linter is relocated
 - :memo: Logo image is added to coverage badge
+- :green_heart: Node.js v14.x is removed from targets for CI
 - :arrow_up: Packages for development are updated
   - `@typescript-eslint/eslint-plugin` is upgraded from 4.29.3 to 4.30.0
   - `@typescript-eslint/parser` is upgraded from 4.29.3 to 4.30.0
