@@ -406,7 +406,7 @@ export class Fraction implements FractionLike, Reducible {
   /**
    * Makes this object irreducible.
    *
-   * @param {(gcd: bigint) => T} cb
+   * @param {Function} cb
    *
    * Callback function which takes a greatest common divisor.
    *
@@ -435,7 +435,7 @@ export class Fraction implements FractionLike, Reducible {
   /**
    * Makes this object irreducible asynchronously.
    *
-   * @param {(gcd: bigint) => T} cb
+   * @param {Function} cb
    *
    * Callback function which takes a greatest common divisor.
    *
@@ -574,7 +574,7 @@ export class Irreducible implements Reducible {
   /**
    * Does nothing.
    *
-   * @param {(gcd: bigint) => T} cb
+   * @param {Function} cb
    *
    * A callback function, but never called
    *
@@ -592,7 +592,7 @@ export class Irreducible implements Reducible {
   /**
    * Does nothing.
    *
-   * @param {(gcd: bigint) => T} cb
+   * @param {Function} cb
    *
    * A callback function, but never called
    *
@@ -628,7 +628,7 @@ export interface Reducible {
   /**
    * Makes this object irreducible.
    *
-   * @param {(gcd: bigint) => T} cb
+   * @param {Function} cb
    *
    * Callback function which takes a greatest common divisor.
    *
@@ -645,7 +645,7 @@ export interface Reducible {
   /**
    * Makes this object irreducible asynchronously.
    *
-   * @param {(gcd: bigint) => T} cb
+   * @param {Function} cb
    *
    * Callback function which takes a greatest common divisor.
    *
@@ -663,7 +663,7 @@ export interface Reducible {
 /**
  * Call procedures concurrently.
  *
- * @param {(() => T)[]} procedures
+ * @param {Function[]} procedures
  *
  * An array of procedures.
  *
@@ -697,7 +697,7 @@ export const callProceduresConcurrentlyAsync = <T>(
  *
  * A target value to be determined.
  *
- * @returns {value is FractionLike}
+ * @returns {boolean}
  *
  * Type-guard-specifier for FractionLike.
  */
