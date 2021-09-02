@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { Euclidean } from './euclidean'
 
 /**
@@ -437,6 +434,7 @@ export class Irreducible implements Reducible {
   /**
    * internal constructor, never used externally
    */
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {
   }
 
@@ -454,6 +452,7 @@ export class Irreducible implements Reducible {
    * @returns the instance of Irreducible
    */
   reduce<T>(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     cb?: (gcd: bigint) => T,
   ): Irreducible | T {
     return Irreducible.TheInstance
@@ -465,6 +464,7 @@ export class Irreducible implements Reducible {
    * @returns the instance of Irreducible
    */
   reduceAsync<T>(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     cb: ReduceAsyncCallback<T>,
   ): Promise<Irreducible | T> {
     return Promise.resolve(Irreducible.TheInstance)
