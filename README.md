@@ -84,5 +84,5 @@ async function doSomething(a: Fraction, b: Fraction, c: Fraction): Promise<void>
 [npm-image]:https://img.shields.io/npm/v/bigint-fraction.svg?logo=npm
 [npm-url]:https://npmjs.org/package/bigint-fraction
 [npmsio-url]:https://npms.io/search?q=bigint-fraction
-[nyc-cov-image]:https://img.shields.io/nycrc/kei-g/bigint-fraction.js?config=.nycrc.json&label=coverage
+[nyc-cov-image]:https://img.shields.io/nycrc/kei-g/bigint-fraction.js?config=.nycrc.json&label=coverage&logo=mocha
 [quality-image]:https://img.shields.io/npms-io/quality-score/bigint-fraction?logo=npm
