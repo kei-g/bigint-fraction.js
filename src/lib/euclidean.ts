@@ -1,13 +1,19 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
 /**
- * bigint utilities
+ * BigInt utilities.
  */
 namespace BigInt {
   /**
-   * get absolute value
-   * @param value target big integer
-   * @returns absolute value of target big integer
+   * Returns absolute value of the integer.
+   *
+   * @param {bigint} value
+   *
+   * An integer.
+   *
+   * @returns {bigint}
+   *
+   * Absolute value of specified integer.
    */
   export const abs =
     (value: bigint): bigint =>
@@ -15,14 +21,23 @@ namespace BigInt {
 }
 
 /**
- * euclidian utilities
+ * Euclidean utilities.
  */
 export namespace Euclidean {
   /**
-   * compute a greatest common divisor between two arguments
-   * @param {bigint} a first argument
-   * @param {bigint} b second argument
-   * @returns {bigint} a greatest common divisor of `a` and `b`
+   * Computes a greatest common divisor between a pair of integers.
+   *
+   * @param {bigint} a
+   *
+   * The first integer.
+   *
+   * @param {bigint} b
+   *
+   * The second integer.
+   *
+   * @returns {bigint}
+   *
+   * A greatest common divisor of two arguments.
    */
   export const GCD = (a: bigint, b: bigint): bigint => {
     if (a === 0n || b === 0n)
@@ -37,10 +52,19 @@ export namespace Euclidean {
   }
 
   /**
-   * asynchronously compute a greatest common divisor between two arguments
-   * @param {bigint} a first argument
-   * @param {bigint} b second argument
-   * @returns {Promise<bigint>} a greatest common divisor of `a` and `b`
+   * Computes a greatest common divisor between a pair of integers asynchronously.
+   *
+   * @param {bigint} a
+   *
+   * The first integer.
+   *
+   * @param {bigint} b
+   *
+   * The second integer.
+   *
+   * @returns {Promise<bigint>}
+   *
+   * A promise.
    */
   export const GCDAsync =
     (a: bigint, b: bigint): Promise<bigint> =>
