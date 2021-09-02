@@ -124,17 +124,11 @@ export class Fraction implements FractionLike, Reducible {
     const f = valueOrNumerator
     if (isFractionLike(f)) {
       const gcd = await Euclidean.GCDAsync(this._denominator, f.denominator)
-      const [lcm, lhs, rhs] = await Promise.all([
-        { a: this._denominator, b: f.denominator },
-        { a: this._numerator, b: f.denominator },
-        { a: this._denominator, b: f.numerator },
-      ].map(
-        (ctx: { a: bigint, b: bigint }) =>
-          new Promise(
-            (resolve: (value: bigint) => void) =>
-              resolve(ctx.a * ctx.b / gcd)
-          )
-      ))
+      const [lcm, lhs, rhs] = await callProceduresConcurrentlyAsync(
+        () => this._denominator * f.denominator / gcd,
+        () => this._numerator * f.denominator / gcd,
+        () => this._denominator * f.numerator / gcd,
+      )
       delete this._irreducible
       this._denominator = lcm
       this._numerator = lhs + rhs
@@ -281,16 +275,10 @@ export class Fraction implements FractionLike, Reducible {
     const f = valueOrNumerator
     if (isFractionLike(f)) {
       delete this._irreducible
-      const [d, n] = await Promise.all([
-        { a: this._denominator, b: f.denominator },
-        { a: this._numerator, b: f.numerator }
-      ].map(
-        (ctx: { a: bigint, b: bigint }) =>
-          new Promise(
-            (resolve: (value: bigint) => void) =>
-              resolve(ctx.a * ctx.b)
-          )
-      ))
+      const [d, n] = await callProceduresConcurrentlyAsync(
+        () => this._denominator * f.denominator,
+        () => this._numerator * f.numerator,
+      )
       this._denominator = d
       this._numerator = n
     }
@@ -361,17 +349,11 @@ export class Fraction implements FractionLike, Reducible {
       return Promise.resolve(Irreducible.TheInstance)
     }
     delete this._irreducible
-    const [result] = await Promise.all([
-      cb(gcd),
-      new Promise(
-        (resolve: (value: bigint) => void) =>
-          resolve(this._denominator /= gcd)
-      ),
-      new Promise(
-        (resolve: (value: bigint) => void) =>
-          resolve(this._numerator /= gcd)
-      ),
-    ])
+    const [result] = await callProceduresConcurrentlyAsync(
+      () => cb(gcd),
+      () => (this._denominator /= gcd) as unknown as T,
+      () => (this._numerator /= gcd) as unknown as T,
+    )
     this._irreducible = true
     return result
   }
@@ -527,6 +509,31 @@ export interface Reducible {
     cb: ReduceAsyncCallback<T>,
   ): Promise<Irreducible | T>
 }
+
+/**
+ * Call procedures concurrently.
+ *
+ * @param {(() => T)[]} procedures an array of procedures
+ * @returns {Promise<T[]>} awaitable array of results
+ */
+export const callProceduresConcurrentlyAsync = <T>(
+  ...procedures: (() => T)[]
+): Promise<T[]> => Promise.all(
+    procedures.map(
+      (
+        procedure: () => T
+      ) =>
+        new Promise(
+          (
+            resolve: (value: T) => void
+          ) =>
+            setImmediate(
+              () =>
+                resolve(procedure())
+            )
+        )
+    )
+  )
 
 /**
  * determines whether if does a value like to fraction

@@ -47,14 +47,19 @@ export namespace Euclidean {
       a === 0n || b === 0n
         ? Promise.resolve(0n)
         : new Promise(
-          (resolve: (value: bigint) => void) => {
-            let [m, n] = [a, b].map(BigInt.abs)
-            while (n) {
-              const r = m % n
-              m = n
-              n = r
-            }
-            resolve(m)
-          }
+          (
+            resolve: (value: bigint) => void
+          ) =>
+            setImmediate(
+              () => {
+                let [m, n] = [a, b].map(BigInt.abs)
+                while (n) {
+                  const r = m % n
+                  m = n
+                  n = r
+                }
+                resolve(m)
+              }
+            )
         )
 }
