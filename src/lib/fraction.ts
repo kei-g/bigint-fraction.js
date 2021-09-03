@@ -671,24 +671,26 @@ export interface Reducible {
  *
  * A promise.
  */
-export const callProceduresConcurrentlyAsync = <T>(
-  ...procedures: (() => T)[]
-): Promise<T[]> => Promise.all(
-    procedures.map(
-      (
-        procedure: () => T
-      ) =>
-        new Promise(
-          (
-            resolve: (value: T) => void
-          ) =>
-            setImmediate(
-              () =>
-                resolve(procedure())
-            )
-        )
+export const callProceduresConcurrentlyAsync =
+  <T>(
+    ...procedures: (() => T)[]
+  ): Promise<T[]> =>
+    Promise.all(
+      procedures.map(
+        (
+          procedure: () => T,
+        ) =>
+          new Promise(
+            (
+              resolve: (value: T) => void
+            ) =>
+              setImmediate(
+                () =>
+                  resolve(procedure())
+              )
+          )
+      )
     )
-  )
 
 /**
  * Determines whether if a value is similar to the fraction class.
