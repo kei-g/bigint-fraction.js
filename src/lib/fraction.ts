@@ -540,31 +540,22 @@ export class Fraction implements FractionLike, Reducible {
     const q = this._numerator / this._denominator
     let n = this._numerator - q * this._denominator
     const d = new Array<bigint>(8)
-    d[0] = this._denominator << 1n  // 2
-    d[1] = d[0] + this._denominator // 3
-    d[2] = d[0] << 1n               // 4
-    d[3] = d[2] + this._denominator // 5
-    d[4] = d[1] << 1n               // 6
-    d[5] = d[4] + this._denominator // 7
-    d[6] = d[2] << 1n               // 8
-    d[7] = d[6] + this._denominator // 9
+    for (let i = 0; i < 8; i++)
+      d[i] = this._denominator * BigInt(i + 2)
     if (precision === undefined)
       precision = 80
     let decstr = `${q}.`
-    for (let i = 0; i < precision; i++) {
+    for (let i = 0; i < precision && n; i++) {
       n *= 10n
-      if (!n)
-        break
-      if (n < d[4]) {
-        if (n < d[2]) {
-          if (n < d[0]) {
+      if (n < d[4])
+        if (n < d[2])
+          if (n < d[0])
             if (n < this._denominator)
               decstr += '0'
             else {
               decstr += '1'
               n -= this._denominator
             }
-          }
           else if (n < d[1]) {
             decstr += '2'
             n -= d[0]
@@ -573,7 +564,6 @@ export class Fraction implements FractionLike, Reducible {
             decstr += '3'
             n -= d[1]
           }
-        }
         else if (n < d[3]) {
           decstr += '4'
           n -= d[2]
@@ -582,8 +572,7 @@ export class Fraction implements FractionLike, Reducible {
           decstr += '5'
           n -= d[3]
         }
-      }
-      else if (n < d[6]) {
+      else if (n < d[6])
         if (n < d[5]) {
           decstr += '6'
           n -= d[4]
@@ -592,7 +581,6 @@ export class Fraction implements FractionLike, Reducible {
           decstr += '7'
           n -= d[5]
         }
-      }
       else if (n < d[7]) {
         decstr += '8'
         n -= d[6]
