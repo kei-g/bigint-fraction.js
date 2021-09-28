@@ -18,7 +18,6 @@
     "chai": "^4.3.4",
     "esbuild": "^0.13.2",
     "eslint": "^7.32.0",
-    "jsdoc": "^3.6.7",
     "mkdirp": "^1.0.4",
     "mocha": "^9.1.2",
     "npm-run-all": "^4.1.5",
@@ -47,8 +46,7 @@
     "url": "https://github.com/kei-g/bigint-fraction.js.git"
   },
   "scripts": {
-    "build": "npm-run-all -p clean lint -p build:lib build:tsc -s build:doc",
-    "build:doc": "jsdoc lib/*.js",
+    "build": "npm-run-all -p clean lint -p build:lib build:tsc",
     "build:lib": "run-p build:lib:*",
     "build:lib:euclidean": "esbuild src/lib/euclidean.ts --minify --outfile=lib/euclidean.js --platform=node",
     "build:lib:fraction": "esbuild src/lib/fraction.ts --minify --outfile=lib/fraction.js --platform=node",
