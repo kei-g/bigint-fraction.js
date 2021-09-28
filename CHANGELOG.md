@@ -1,5 +1,17 @@
 # ChangeLogs
 
+## Version 1.0.3
+
+- :sparkles: Decimalization in arbitrary precision is implemented
+- :zap: Euclidean algorithm is improved
+- :arrow_up: Packages for development are updated
+  - `@types/chai` is upgraded from 4.2.21 to 4.2.22
+  - `@typescript-eslint/eslint-plugin` is upgraded from 4.30.0 to 4.32.0
+  - `@typescript-eslint/parser` is upgraded from 4.30.0 to 4.32.0
+  - `mocha` is upgraded from 9.1.1 to 9.1.2
+  - `terser` is upgraded from 5.7.2 to 5.9.0
+  - `typescript` is upgraded from 4.4.2 to 4.4.3
+
 ## Version 1.0.2
 
 - :heavy_minus_sign: `uuid` is removed from development package
