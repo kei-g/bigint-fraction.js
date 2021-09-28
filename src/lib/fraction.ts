@@ -515,6 +515,97 @@ export class Fraction implements FractionLike, Reducible {
       await this.addAsync(-numerator, denominator)
     }
   }
+
+  /**
+   * Converts to a string of decimal value.
+   *
+   * @param {number} precision
+   *
+   * A precision.
+   *
+   * @returns {string}
+   *
+   * The converted string of decimal value.
+   */
+  toString(precision?: number): string {
+    if (!this._denominator)
+      return this._numerator ? (this._numerator < 0 ? '-Infinity' : 'Infinity') : 'NaN'
+    if (this._denominator < 0)
+      if (this._numerator < 0)
+        return new Fraction(-this._numerator, -this._denominator).toString(precision)
+      else
+        return '-' + new Fraction(this._numerator, -this._denominator).toString(precision)
+    else if (this._numerator < 0)
+      return '-' + new Fraction(-this._numerator, this._denominator).toString(precision)
+    const q = this._numerator / this._denominator
+    let n = this._numerator - q * this._denominator
+    const d = new Array<bigint>(8)
+    d[0] = this._denominator << 1n  // 2
+    d[1] = d[0] + this._denominator // 3
+    d[2] = d[0] << 1n               // 4
+    d[3] = d[2] + this._denominator // 5
+    d[4] = d[1] << 1n               // 6
+    d[5] = d[4] + this._denominator // 7
+    d[6] = d[2] << 1n               // 8
+    d[7] = d[6] + this._denominator // 9
+    if (precision === undefined)
+      precision = 80
+    let decstr = `${q}.`
+    for (let i = 0; i < precision; i++) {
+      console.assert(n < this._denominator, `n must be less than denominator, ${n}, ${this._denominator}`)
+      n *= 10n
+      console.assert(n < this._denominator * 10n, 'n must be less than denominator times 10')
+      if (!n)
+        break
+      if (n < d[4]) {
+        if (n < d[2]) {
+          if (n < d[0]) {
+            if (n < this._denominator)
+              decstr += '0'
+            else {
+              decstr += '1'
+              n -= this._denominator
+            }
+          }
+          else if (n < d[1]) {
+            decstr += '2'
+            n -= d[0]
+          }
+          else {
+            decstr += '3'
+            n -= d[1]
+          }
+        }
+        else if (n < d[3]) {
+          decstr += '4'
+          n -= d[2]
+        }
+        else {
+          decstr += '5'
+          n -= d[3]
+        }
+      }
+      else if (n < d[6]) {
+        if (n < d[5]) {
+          decstr += '6'
+          n -= d[4]
+        }
+        else {
+          decstr += '7'
+          n -= d[5]
+        }
+      }
+      else if (n < d[7]) {
+        decstr += '8'
+        n -= d[6]
+      }
+      else {
+        decstr += '9'
+        n -= d[7]
+      }
+    }
+    return decstr
+  }
 }
 
 /**

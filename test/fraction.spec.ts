@@ -350,3 +350,38 @@ describe('subtractAsync', () => {
     expect(a.numerator).to.eq(1n)
   })
 })
+
+describe('toString', () => {
+  it('-Infinity', () => {
+    const a = new Fraction(-1, 0)
+    expect(a.toString()).to.eq('-Infinity')
+  })
+  it('Infinity', () => {
+    const a = new Fraction(1, 0)
+    expect(a.toString()).to.eq('Infinity')
+  })
+  it('NaN', () => {
+    const a = new Fraction(0, 0)
+    expect(a.toString()).to.eq('NaN')
+  })
+  it('-1/2', () => {
+    const a = new Fraction(-1, 2)
+    expect(a.toString()).to.eq('-0.5')
+  })
+  it('-1/-2', () => {
+    const a = new Fraction(-1, -2)
+    expect(a.toString()).to.eq('0.5')
+  })
+  it('1.0123456789', () => {
+    const a = new Fraction(10123456789, 10000000000)
+    expect(a.toString()).to.eq('1.0123456789')
+  })
+  it('1/-2', () => {
+    const a = new Fraction(1, -2)
+    expect(a.toString()).to.eq('-0.5')
+  })
+  it('1/3', () => {
+    const a = new Fraction(1, 3)
+    expect(a.toString(10)).to.eq('0.3333333333')
+  })
+})
