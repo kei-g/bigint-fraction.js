@@ -30,12 +30,6 @@
   "engines": {
     "node": ">=14.17.5"
   },
-  "files": [
-    "CHANGELOG.md",
-    "index.d.ts",
-    "index.js",
-    "lib"
-  ],
   "homepage": "https://github.com/kei-g/bigint-fraction.js",
   "keywords": [
     "bigfraction",

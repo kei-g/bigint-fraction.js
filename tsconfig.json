@@ -25,9 +25,9 @@
       "node_modules/@types",
     ],
   },
-  "files": [
-    "src/index.ts",
-    "src/lib/euclidean.ts",
-    "src/lib/fraction.ts",
+  "exclude": [
+  ],
+  "include": [
+    "src",
   ],
 }
