@@ -16,6 +16,7 @@
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "chai": "^4.3.4",
+    "esbuild": "^0.13.2",
     "eslint": "^7.32.0",
     "jsdoc": "^3.6.7",
     "mkdirp": "^1.0.4",
@@ -23,7 +24,6 @@
     "npm-run-all": "^4.1.5",
     "nyc": "^15.1.0",
     "rimraf": "^3.0.2",
-    "terser": "^5.9.0",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
   },
@@ -53,9 +53,12 @@
     "url": "https://github.com/kei-g/bigint-fraction.js.git"
   },
   "scripts": {
-    "build": "npm-run-all -p clean lint -p build:mkdir build:tsc -p build:doc terse:*",
-    "build:doc": "jsdoc build/lib/*.js",
-    "build:mkdir": "mkdirp lib",
+    "build": "npm-run-all -p clean lint -p build:lib build:tsc -s build:doc",
+    "build:doc": "jsdoc lib/*.js",
+    "build:lib": "run-p build:lib:*",
+    "build:lib:euclidean": "esbuild src/lib/euclidean.ts --minify --outfile=lib/euclidean.js --platform=node",
+    "build:lib:fraction": "esbuild src/lib/fraction.ts --minify --outfile=lib/fraction.js --platform=node",
+    "build:lib:index": "esbuild src/index.ts --minify --outfile=index.js --platform=node",
     "build:tsc": "tsc",
     "clean": "rimraf build/ index.d.ts index.js lib/ out/",
     "cover": "nyc --check-coverage -r html -r text _mocha",
@@ -63,9 +66,6 @@
     "postpublish": "run-s clean",
     "prepublishOnly": "run-s build",
     "start": "ts-node src/index.ts",
-    "terse:euclidean": "terser build/lib/euclidean.js -c -m -o lib/euclidean.js --toplevel",
-    "terse:fraction": "terser build/lib/fraction.js -c -m -o lib/fraction.js --toplevel",
-    "terse:index": "terser build/index.js -c -m -o index.js --toplevel",
     "test": "run-p cover lint"
   },
   "version": "1.0.4"
