@@ -60,5 +60,6 @@
     "start": "ts-node src/index.ts",
     "test": "run-p cover lint"
   },
+  "types": "index.d.ts",
   "version": "1.0.4"
 }
