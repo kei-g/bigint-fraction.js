@@ -45,30 +45,6 @@
   "license": "BSD-3-Clause",
   "main": "index.js",
   "name": "bigint-fraction",
-  "nyc": {
-    "branches": 100,
-    "funcs": 100,
-    "lines": 100,
-    "statements": 100,
-    "watermarks": {
-      "branches": [
-        80,
-        95
-      ],
-      "functions": [
-        80,
-        95
-      ],
-      "lines": [
-        80,
-        95
-      ],
-      "statements": [
-        80,
-        95
-      ]
-    }
-  },
   "publishConfig": {
     "access": "public"
   },
