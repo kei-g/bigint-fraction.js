@@ -552,9 +552,7 @@ export class Fraction implements FractionLike, Reducible {
       precision = 80
     let decstr = `${q}.`
     for (let i = 0; i < precision; i++) {
-      console.assert(n < this._denominator, `n must be less than denominator, ${n}, ${this._denominator}`)
       n *= 10n
-      console.assert(n < this._denominator * 10n, 'n must be less than denominator times 10')
       if (!n)
         break
       if (n < d[4]) {
