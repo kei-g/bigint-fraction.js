@@ -54,7 +54,7 @@
     "build:lib:fraction": "esbuild src/lib/fraction.ts --minify --outfile=lib/fraction.js --platform=node",
     "build:lib:index": "esbuild src/index.ts --minify --outfile=index.js --platform=node",
     "build:tsc": "tsc",
-    "clean": "rimraf build/ index.d.ts index.js lib/ out/",
+    "clean": "rimraf .nyc_output/ coverage/ build/ index.d.ts index.js lib/ out/",
     "cover": "nyc --check-coverage -r html -r text _mocha",
     "lint": "eslint src/*.ts src/lib/*.ts",
     "postpublish": "run-s clean",
