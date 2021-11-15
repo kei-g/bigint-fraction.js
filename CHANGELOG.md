@@ -1,5 +1,23 @@
 # ChangeLogs
 
+## Version 1.0.4
+
+- :memo: CONTRIBUTING.md is added
+- :building_construction: Migration from `terser` to `esbuild`
+- :arrow_up: Packages for development are updated
+  - `@typescript-eslint/eslint-plugin` is upgraded from 4.32.0 to 5.3.1
+  - `@typescript-eslint/parser` is upgraded from 4.32.0 to 5.3.1
+  - `esbuild` is upgraded from 0.13.2 to 0.13.13
+  - `eslint` is upgraded from 7.32.0 to 8.2.0
+  - `mocha` is upgraded from 9.1.2 to 9.1.3
+  - `ts-node` is upgraded from 10.2.1 to 10.4.0
+  - `typescript` is upgraded from 4.4.3 to 4.4.4
+- :fire: Redundant codes are purged
+- :green_heart: Target Node.js versions are added for CI
+- :heavy_minus_sign: Unnecessary packages are removed from dependencies
+  - `jsdoc` is removed
+  - `mkdirp` is removed
+
 ## Version 1.0.3
 
 - :sparkles: Decimalization in arbitrary precision is implemented
