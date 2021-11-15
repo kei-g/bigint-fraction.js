@@ -15,7 +15,6 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "newLine": "lf",
-    "outDir": "build",
     "pretty": true,
     "removeComments": false,
     "strict": true,
