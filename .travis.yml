@@ -6,7 +6,9 @@ cache:
     - ~/.npm
 language: node_js
 node_js:
+  - 14
   - 16
+  - 17
 notifications:
   email: false
 script:

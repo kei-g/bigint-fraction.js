@@ -8,7 +8,9 @@ jobs:
     strategy:
       matrix:
         node: [
-          '16.13.0'
+          '14.17.5',
+          '16.13.0',
+          '17.1.0'
         ]
     name: Test on Node.js ${{ matrix.node }}
     steps:
