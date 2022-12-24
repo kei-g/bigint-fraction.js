@@ -15,7 +15,7 @@ jobs:
           script: |
             const child_process = require('node:child_process')
             const { ref } = context
-            core.setOutput('version', ref.slice(10))
+            core.setOutput('version', ref.slice(11))
             child_process.execSync(`git fetch --depth 1 origin +${ref}:${ref}`)
             child_process.exec(
               `git for-each-ref --format='%(contents)' ${ref}`,
