@@ -104,7 +104,7 @@ describe('constructor', () => {
     expect(a.numerator).to.eq(1n)
   })
   it('null denominator', () => {
-    const a = new Fraction(1, null)
+    const a = new Fraction(1, null as unknown as undefined)
     expect(a.denominator).to.eq(1n)
     expect(a.numerator).to.eq(1n)
   })
