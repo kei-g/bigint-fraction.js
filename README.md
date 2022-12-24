@@ -1,8 +1,16 @@
 # bigint-fraction [![license][license-image]][license-url] [![npm][npm-image]][npm-url]
 
-[![coverage][nyc-cov-image]][github-url] [![dependency][depencency-image]][dependency-url] [![maintenance][maintenance-image]][npmsio-url] [![quality][quality-image]][npmsio-url] [![GitHub CI (Build)][github-build-image]][github-build-url] [![GitHub CI (Coverage)][github-coverage-image]][github-coverage-url]
+[![coverage][nyc-cov-image]][github-url] [![dependency][depencency-image]][dependency-url] [![maintenance][maintenance-image]][npmsio-url] [![quality][quality-image]][npmsio-url]
 
 `bigint-fraction` - Fraction composed of bigint
+
+## CI Status
+
+| Target | Status |
+|-|-|
+| Build | [![GitHub (Build)][github-build-image]][github-build-url] |
+| CodeQL | [![GitHub (CodeQL)][github-codeql-image]][github-codeql-url] |
+| Coverage | [![GitHub (Coverage)][github-coverage-image]][github-coverage-url] |
 
 ## Installation
 
@@ -78,6 +86,8 @@ async function doSomething(a: Fraction, b: Fraction, c: Fraction): Promise<void>
 [dependency-url]:https://npmjs.com/package/bigint-fraction?activeTab=dependencies
 [github-build-image]:https://github.com/kei-g/bigint-fraction.js/actions/workflows/build.yml/badge.svg
 [github-build-url]:https://github.com/kei-g/bigint-fraction.js/actions/workflows/build.yml
+[github-codeql-image]:https://github.com/kei-g/bigint-fraction.js/actions/workflows/codeql.yml/badge.svg
+[github-codeql-url]:https://github.com/kei-g/bigint-fraction.js/actions/workflows/codeql.yml
 [github-coverage-image]:https://github.com/kei-g/bigint-fraction.js/actions/workflows/coverage.yml/badge.svg
 [github-coverage-url]:https://github.com/kei-g/bigint-fraction.js/actions/workflows/coverage.yml
 [github-url]:https://github.com/kei-g/bigint-fraction.js
