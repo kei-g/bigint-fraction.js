@@ -17,8 +17,8 @@ jobs:
           msg="${msg//'%'/'%25'}"
           msg="${msg//$'\n'/'%0A'}"
           msg="${msg//$'\r'/'%0D'}"
-          echo "::set-output name=message::$msg"
-          echo "::set-output name=version::${ref:11}"
+          echo "message=$msg" >> $GITHUB_OUTPUT
+          echo "version=${ref:11}" >> $GITHUB_OUTPUT
       - env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         name: Create release
