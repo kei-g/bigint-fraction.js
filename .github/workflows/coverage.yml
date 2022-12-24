@@ -44,8 +44,6 @@ on:
       - '.gitmodules'
       - 'LICENSE'
   push:
-    branches:
-      - main
     paths-ignore:
       - '**.md'
       - '.editorconfig'
