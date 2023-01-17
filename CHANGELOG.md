@@ -1,5 +1,21 @@
 # ChangeLogs
 
+## Version 1.0.6
+
+- :green_heart: CI
+  - A job to publish the package is added
+  - Alternate implementation is added instead of `actions/create-release`
+  - Preceding 'v' is omitted from tag name to create release
+- :arrow_up: Packages for development are bumped
+  - `@types/node` is bumped from 18.11.17 to 18.11.18
+  - `@typescript-eslint/eslint-plugin` is bumped from 5.47.0 to 5.48.2
+  - `@typescript-eslint/parser` is bumped from 5.47.0 to 5.48.2
+  - `esbuild` is bumped from 0.16.10 to 0.17.1
+  - `eslint` is bumped from 8.30.0 to 8.32.0
+  - `rimraf` is bumped from 3.0.2 to 4.1.0
+- :lock: Security update
+  - `json5` is bumped from 2.2.0 to 2.2.2 by `npm audit fix`
+
 ## Version 1.0.5
 
 - :green_heart: CI chore
