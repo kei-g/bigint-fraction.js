@@ -1,6 +1,5 @@
 jobs:
   build:
-    if: github.ref_type == 'branch'
     name: Build on Node.js ${{ matrix.node }}
     runs-on: ubuntu-latest
     strategy:
@@ -29,16 +28,9 @@ jobs:
         run: npm run build
 name: Build
 on:
-  pull_request:
-    paths-ignore:
-      - '**.md'
-      - '.editorconfig'
-      - '.gitattributes'
-      - '.gitignore'
-      - '.github/dependabot.yml'
-      - '.gitmodules'
-      - 'LICENSE'
   push:
+    branches:
+      - main
     paths-ignore:
       - '**.md'
       - '.editorconfig'
