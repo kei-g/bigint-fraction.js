@@ -1,0 +1,17 @@
+{
+  "files.associations": {
+    "**/LICENSE": "plaintext",
+  },
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.hg": true,
+    "**/.svn": true,
+    "**/CVS": true,
+    "**/Thumbs.db": true,
+    "**/node_modules": true,
+  },
+  "markdownlint.config": {
+    "MD009": false,
+  },
+}
