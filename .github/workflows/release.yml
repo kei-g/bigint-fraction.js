@@ -89,7 +89,7 @@ jobs:
         run: npm publish
 name: Release
 on:
-  create:
+  push:
     branches-ignore:
       - '**'
     tags:
