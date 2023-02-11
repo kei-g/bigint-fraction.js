@@ -1,73 +1,15 @@
 jobs:
   github:
+    if: github.ref_type == 'tag'
     name: Create a release on GitHub
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
       - name: Create a release
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const { ref, sha } = context
-            const child_process = require('node:child_process')
-            child_process.exec(
-              `git fetch --depth 1 origin +${ref}:${ref}`,
-              {},
-              () => child_process.exec(
-                `git for-each-ref --format='%(contents)' ${ref}`,
-                {},
-                async (error, stdout, stderr) => {
-                  if (error)
-                    return core.setFailed(error)
-                  const i = stdout.search(/(?<=\n+\s*)Signed\-off\-by\:\s+/g)
-                  const j = stdout.search(/(?<=\n+\s*)\-{5}BEGIN\ PGP\ SIGNATURE\-{5}\n{2}/g)
-                  const body = i < 0 ? j < 0 ? stdout : stdout.slice(0, j) : stdout.slice(0, i)
-                  const { owner, repo } = context.repo
-                  const version = ref.slice(11)
-                  const response = await github.request(
-                    `POST /repos/${owner}/${repo}/releases`,
-                    {
-                      body,
-                      draft: false,
-                      name: `Version ${version}`,
-                      owner,
-                      prerelease: false,
-                      repo,
-                      tag_name: `v${version}`,
-                      target_commitish: sha,
-                    }
-                  )
-                  const { data, status } = response
-                  const result = {}
-                  switch (status) {
-                    case 201:
-                      for (const key in data) {
-                        const value = data[key]
-                        if (typeof value === 'object')
-                          continue
-                        result[key] = value
-                        core.setOutput(key, value)
-                      }
-                      console.log(result)
-                      break
-                    case 404:
-                      core.setFailed('Not Found if the discussion category name is invalid')
-                      break
-                    case 422:
-                      core.setFailed('Validation failed, or the endpoint has been spammed')
-                      break
-                    default:
-                      core.setFailed(`Unknown error, status=${status}`)
-                      break
-                  }
-                }
-              )
-            )
+        uses: kei-g/github/create-release@main
   npm:
     name: Publish
+    needs:
+      - github
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -89,8 +31,6 @@ jobs:
         run: npm publish
 name: Release
 on:
-  push:
-    branches-ignore:
-      - '**'
+  create:
     tags:
       - 'v[0-9]+(\.[0-9]+)*(\-[0-9A-Za-z]+)*'
