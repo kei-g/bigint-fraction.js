@@ -44,7 +44,7 @@
   "repository": "github:kei-g/bigint-fraction.js",
   "scripts": {
     "build": "npm-run-all -p clean lint -p build:bundle build:tsc",
-    "build:bundle": "esbuild src/index.ts --bundle --minify --outfile=index.js --platform=node",
+    "build:bundle": "esbuild src/index.ts --bundle --minify --outfile=index.js --platform=node --target=es2020",
     "build:tsc": "tsc",
     "clean": "rimraf .nyc_output/ coverage/ index.d.ts index.js lib/",
     "cover": "nyc --check-coverage -r html -r text _mocha",
