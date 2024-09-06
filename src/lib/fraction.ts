@@ -417,7 +417,7 @@ export class Fraction implements FractionLike, Reducible {
    * function will be returned.
    */
   reduce<T>(
-    cb?: (gcd: bigint) => T,
+    cb?: (_gcd: bigint) => T,
   ): Irreducible | T {
     const gcd = Euclidean.GCD(this._denominator, this._numerator)
     if (!gcd || gcd === 1n) {
@@ -635,7 +635,6 @@ export class Irreducible implements Reducible {
    * Constructs an object of Irreducible class.
    * This is never used externally.
    */
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {
   }
 
@@ -660,8 +659,8 @@ export class Irreducible implements Reducible {
    * The sole instance of Irreducible class.
    */
   reduce<T>(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    cb?: (gcd: bigint) => T,
+    // eslint-disable-next-line no-unused-vars
+    cb?: (_gcd: bigint) => T,
   ): Irreducible | T {
     return Irreducible.TheInstance
   }
@@ -678,7 +677,7 @@ export class Irreducible implements Reducible {
    * The sole instance of Irreducible class
    */
   reduceAsync<T>(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line no-unused-vars
     cb: ReduceAsyncCallback<T>,
   ): Promise<Irreducible | T> {
     return Promise.resolve(Irreducible.TheInstance)
@@ -689,7 +688,7 @@ export class Irreducible implements Reducible {
  * Callback function type for Reducible#reduceAsync.
  */
 type ReduceAsyncCallback<T> =
-  (gcd: bigint) => PromiseLike<T> | T
+  (_gcd: bigint) => PromiseLike<T> | T
 
 /**
  * Reducible interface.
@@ -716,7 +715,8 @@ export interface Reducible {
    * function will be returned.
    */
   reduce<T>(
-    cb?: (gcd: bigint) => T,
+    // eslint-disable-next-line no-unused-vars
+    cb?: (_gcd: bigint) => T,
   ): Irreducible | T
 
   /**
@@ -733,6 +733,7 @@ export interface Reducible {
    * function will be returned.
    */
   reduceAsync<T>(
+    // eslint-disable-next-line no-unused-vars
     cb: ReduceAsyncCallback<T>,
   ): Promise<Irreducible | T>
 }
@@ -759,7 +760,7 @@ export const callProceduresConcurrentlyAsync =
         ) =>
           new Promise(
             (
-              resolve: (value: T) => void
+              resolve: (_value: T) => void
             ) =>
               setImmediate(
                 () =>

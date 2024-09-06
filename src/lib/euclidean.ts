@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-namespace */
-
 /**
  * BigInt utilities.
  */
@@ -77,7 +75,7 @@ export namespace Euclidean {
           ? Promise.resolve(a)
           : new Promise(
             (
-              resolve: (value: bigint) => void
+              resolve: (_value: bigint) => void
             ) => {
               const m = BigInt.abs(a)
               const n = BigInt.abs(b)
@@ -109,7 +107,7 @@ const computeLazily =
   (
     greater: bigint,
     lesser: bigint,
-    resolve: (gcf: bigint) => void,
+    resolve: (_gcf: bigint) => void,
   ): void => {
     const r = greater % lesser
     if (r)
