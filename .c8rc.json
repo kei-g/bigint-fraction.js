@@ -13,12 +13,12 @@
   "include": [
     "src/lib/*.ts"
   ],
-  "lines": 99.56,
+  "lines": 99.55,
   "reporter": [
     "html",
     "text"
   ],
-  "statements": 99.56,
+  "statements": 99.55,
   "watermarks": {
     "branches": [
       80,

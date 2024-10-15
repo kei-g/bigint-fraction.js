@@ -650,7 +650,7 @@ export class Irreducible implements Reducible {
   /**
    * Does nothing.
    *
-   * @param {Function} cb
+   * @param {Function} _cb
    *
    * A callback function, but never called
    *
@@ -659,8 +659,7 @@ export class Irreducible implements Reducible {
    * The sole instance of Irreducible class.
    */
   reduce<T>(
-    // eslint-disable-next-line no-unused-vars
-    cb?: (_gcd: bigint) => T,
+    _cb?: (gcd: bigint) => T,
   ): Irreducible | T {
     return Irreducible.TheInstance
   }
@@ -668,7 +667,7 @@ export class Irreducible implements Reducible {
   /**
    * Does nothing.
    *
-   * @param {Function} cb
+   * @param {Function} _cb
    *
    * A callback function, but never called
    *
@@ -677,8 +676,7 @@ export class Irreducible implements Reducible {
    * The sole instance of Irreducible class
    */
   reduceAsync<T>(
-    // eslint-disable-next-line no-unused-vars
-    cb: ReduceAsyncCallback<T>,
+    _cb: ReduceAsyncCallback<T>,
   ): Promise<Irreducible | T> {
     return Promise.resolve(Irreducible.TheInstance)
   }
@@ -715,8 +713,7 @@ export interface Reducible {
    * function will be returned.
    */
   reduce<T>(
-    // eslint-disable-next-line no-unused-vars
-    cb?: (_gcd: bigint) => T,
+    cb?: (gcd: bigint) => T,
   ): Irreducible | T
 
   /**
@@ -733,7 +730,6 @@ export interface Reducible {
    * function will be returned.
    */
   reduceAsync<T>(
-    // eslint-disable-next-line no-unused-vars
     cb: ReduceAsyncCallback<T>,
   ): Promise<Irreducible | T>
 }
