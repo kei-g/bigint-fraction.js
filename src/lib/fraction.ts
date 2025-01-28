@@ -544,53 +544,53 @@ export class Fraction implements FractionLike, Reducible {
       d[i] = this._denominator * BigInt(i + 2)
     if (precision === undefined)
       precision = 80
-    let decstr = `${q}.`
+    let decimalString = `${q}.`
     for (let i = 0; i < precision && n; i++) {
       n *= 10n
       if (n < d[4])
         if (n < d[2])
           if (n < d[0])
             if (n < this._denominator)
-              decstr += '0'
+              decimalString += '0'
             else {
-              decstr += '1'
+              decimalString += '1'
               n -= this._denominator
             }
           else if (n < d[1]) {
-            decstr += '2'
+            decimalString += '2'
             n -= d[0]
           }
           else {
-            decstr += '3'
+            decimalString += '3'
             n -= d[1]
           }
         else if (n < d[3]) {
-          decstr += '4'
+          decimalString += '4'
           n -= d[2]
         }
         else {
-          decstr += '5'
+          decimalString += '5'
           n -= d[3]
         }
       else if (n < d[6])
         if (n < d[5]) {
-          decstr += '6'
+          decimalString += '6'
           n -= d[4]
         }
         else {
-          decstr += '7'
+          decimalString += '7'
           n -= d[5]
         }
       else if (n < d[7]) {
-        decstr += '8'
+        decimalString += '8'
         n -= d[6]
       }
       else {
-        decstr += '9'
+        decimalString += '9'
         n -= d[7]
       }
     }
-    return decstr
+    return decimalString
   }
 }
 
