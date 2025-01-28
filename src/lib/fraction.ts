@@ -197,6 +197,7 @@ export class Fraction implements FractionLike, Reducible {
     }
     else {
       const numerator = f
+      const jobs = [] as Promise<void>[]
       switch (typeof denominator) {
         case 'bigint':
           await this.addAsync({
@@ -217,8 +218,10 @@ export class Fraction implements FractionLike, Reducible {
           })
           break
         default:
-          await Promise.reject(new Error('illegal denominator type'))
+          jobs.push(Promise.reject(new Error('illegal denominator type')))
+          break
       }
+      await Promise.all(jobs)
     }
   }
 
@@ -376,6 +379,7 @@ export class Fraction implements FractionLike, Reducible {
     }
     else {
       const numerator = BigInt(f)
+      const jobs = [] as Promise<void>[]
       switch (typeof denominator) {
         case 'bigint':
         case 'number':
@@ -389,8 +393,10 @@ export class Fraction implements FractionLike, Reducible {
           await Promise.resolve()
           break
         default:
-          await Promise.reject(new Error('illegal denominator type'))
+          jobs.push(Promise.reject(new Error('illegal denominator type')))
+          break
       }
+      await Promise.all(jobs)
     }
   }
 
