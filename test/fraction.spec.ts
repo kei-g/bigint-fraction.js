@@ -74,7 +74,7 @@ describe('addAsync', () => {
           caught = true
         }
       })
-    expect(caught).to.be.true
+    expect(caught).to.be.eq(true)
   })
 })
 
@@ -158,10 +158,10 @@ describe('isIrreducible', () => {
   it('5/3 is irreducible', () => {
     expect(a.denominator).to.eq(3n)
     expect(a.numerator).to.eq(5n)
-    expect(a.isIrreducible).to.be.true
+    expect(a.isIrreducible).to.be.eq(true)
   })
   it('call twice', () =>
-    expect(a.isIrreducible).to.be.true
+    expect(a.isIrreducible).to.be.eq(true)
   )
 })
 
@@ -171,7 +171,7 @@ describe('multiply', () => {
     expect(a.denominator).to.eq(1n)
     expect(a.numerator).to.eq(2n)
     a.multiply(new Fraction(1, 2))
-    expect(a.isIrreducible).to.be.false
+    expect(a.isIrreducible).to.be.eq(false)
     a.reduce()
     expect(a.denominator).to.eq(1n)
     expect(a.numerator).to.eq(1n)
@@ -181,7 +181,7 @@ describe('multiply', () => {
     expect(a.denominator).to.eq(1n)
     expect(a.numerator).to.eq(2n)
     a.multiply(1, 2)
-    expect(a.isIrreducible).to.be.false
+    expect(a.isIrreducible).to.be.eq(false)
     a.reduce()
     expect(a.denominator).to.eq(1n)
     expect(a.numerator).to.eq(1n)
@@ -191,7 +191,7 @@ describe('multiply', () => {
     expect(a.denominator).to.eq(1n)
     expect(a.numerator).to.eq(2n)
     a.multiply(1, 2n)
-    expect(a.isIrreducible).to.be.false
+    expect(a.isIrreducible).to.be.eq(false)
     a.reduce()
     expect(a.denominator).to.eq(1n)
     expect(a.numerator).to.eq(1n)
@@ -219,7 +219,7 @@ describe('multiplyAsync', () => {
     expect(a.denominator).to.eq(1n)
     expect(a.numerator).to.eq(2n)
     await a.multiplyAsync(new Fraction(1, 2))
-    expect(a.isIrreducible).to.be.false
+    expect(a.isIrreducible).to.be.eq(false)
     await a.reduceAsync((gcd: bigint) => gcd)
     expect(a.denominator).to.eq(1n)
     expect(a.numerator).to.eq(1n)
@@ -229,7 +229,7 @@ describe('multiplyAsync', () => {
     expect(a.denominator).to.eq(1n)
     expect(a.numerator).to.eq(2n)
     await a.multiplyAsync(1, 2)
-    expect(a.isIrreducible).to.be.false
+    expect(a.isIrreducible).to.be.eq(false)
     await a.reduceAsync((gcd: bigint) => gcd)
     expect(a.denominator).to.eq(1n)
     expect(a.numerator).to.eq(1n)
@@ -239,7 +239,7 @@ describe('multiplyAsync', () => {
     expect(a.denominator).to.eq(1n)
     expect(a.numerator).to.eq(2n)
     await a.multiplyAsync(1, 2n)
-    expect(a.isIrreducible).to.be.false
+    expect(a.isIrreducible).to.be.eq(false)
     await a.reduceAsync((gcd: bigint) => gcd)
     expect(a.denominator).to.eq(1n)
     expect(a.numerator).to.eq(1n)
@@ -265,7 +265,7 @@ describe('multiplyAsync', () => {
           caught = true
         }
       })
-    expect(caught).to.be.true
+    expect(caught).to.be.eq(true)
   })
 })
 
@@ -276,7 +276,7 @@ describe('reduce', () => {
     expect(reduced).to.be.instanceOf(Irreducible)
     if (typeof reduced === 'bigint')
       return
-    expect(reduced.isIrreducible).to.be.true
+    expect(reduced.isIrreducible).to.be.eq(true)
     expect(reduced.reduce()).to.eq(reduced)
     expect(await reduced.reduceAsync((gcd: bigint) => gcd)).to.eq(reduced)
   })
