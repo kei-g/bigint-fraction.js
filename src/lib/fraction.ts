@@ -305,7 +305,7 @@ export class Fraction implements FractionLike, Reducible {
   }
 
   /**
-   * Multiplys the value of this object.
+   * Multiplies the value of this object.
    *
    * @param {Fraction | FractionLike | bigint | number} valueOrNumerator
    *
@@ -348,7 +348,7 @@ export class Fraction implements FractionLike, Reducible {
   }
 
   /**
-   * Multiplys the value of this object asynchronously.
+   * Multiplies the value of this object asynchronously.
    *
    * @param {Fraction | FractionLike | bigint | number} valueOrNumerator
    *
