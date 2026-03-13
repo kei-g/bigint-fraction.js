@@ -1,4 +1,4 @@
-import { Euclidean } from './euclidean'
+import { Euclidean } from './euclidean.ts'
 
 /**
  * Fractional number class.
@@ -540,9 +540,9 @@ export class Fraction implements FractionLike, Reducible {
       if (this._numerator < 0)
         return new Fraction(-this._numerator, -this._denominator).toString(precision)
       else
-        return '-' + new Fraction(this._numerator, -this._denominator).toString(precision)
+        return `-${new Fraction(this._numerator, -this._denominator).toString(precision)}`
     else if (this._numerator < 0)
-      return '-' + new Fraction(-this._numerator, this._denominator).toString(precision)
+      return `-${new Fraction(-this._numerator, this._denominator).toString(precision)}`
     const q = this._numerator / this._denominator
     let n = this._numerator - q * this._denominator
     const d = new Array<bigint>(8)

@@ -1,4 +1,4 @@
-import { Fraction, Irreducible } from '../src/index'
+import { Fraction, Irreducible } from '../src/index.ts'
 import { deepEqual, equal, notEqual, throws } from 'node:assert'
 import { describe, it } from 'mocha'
 

@@ -38,7 +38,7 @@ export namespace Euclidean {
    * A greatest common divisor of two arguments.
    */
   export const GCD = (a: bigint, b: bigint): bigint => {
-    if (!a || !b)
+    if (!(a && b))
       return 0n
     if (a === b)
       return a
@@ -69,7 +69,7 @@ export namespace Euclidean {
    */
   export const GCDAsync =
     (a: bigint, b: bigint): Promise<bigint> =>
-      !a || !b
+      !(a && b)
         ? Promise.resolve(0n)
         : a === b
           ? Promise.resolve(a)

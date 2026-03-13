@@ -11,18 +11,16 @@
   ],
   "description": "Fraction composed of bigint",
   "devDependencies": {
-    "@types/eslint": "^9.6.1",
+    "@biomejs/biome": "^2.4.6",
     "@types/mocha": "^10.0.10",
     "@types/node": "^25.4.0",
     "c8": "^11.0.0",
     "esbuild": "^0.27.3",
     "esbuild-register": "^3.6.0",
-    "eslint": "^10.0.3",
     "mocha": "^11.7.5",
     "npm-run-all": "^4.1.5",
     "rimraf": "^6.1.3",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.56.1"
+    "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">=14.17.5"
@@ -46,7 +44,7 @@
     "build:tsc": "tsc",
     "clean": "rimraf coverage/ index.d.ts index.js lib/",
     "cover": "c8 --check-coverage _mocha",
-    "lint": "eslint src/**/*.ts",
+    "lint": "biome lint --write",
     "postpublish": "run-s clean",
     "prepublishOnly": "run-s build",
     "start": "node --require esbuild-register src/index.ts",
