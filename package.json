@@ -18,7 +18,7 @@
     "esbuild": "^0.28.1",
     "esbuild-register": "^3.6.0",
     "mocha": "^11.7.6",
-    "npm-run-all": "^4.1.5",
+    "npm-run-all2": "^9.0.2",
     "rimraf": "^6.1.3",
     "typescript": "^7.0.2"
   },
@@ -44,17 +44,17 @@
   },
   "repository": "github:kei-g/bigint-fraction.js",
   "scripts": {
-    "build": "npm-run-all -p clean lint -p build:bundle build:tsc",
+    "build": "npm-run-all2 --parallel clean lint --parallel build:bundle build:tsc",
     "build:bundle": "esbuild src/index.ts --bundle --minify --outfile=index.js --platform=node --target=es2020",
     "build:tsc": "tsc",
     "clean": "rimraf coverage/ index.d.ts index.js lib/",
     "cover": "c8 --check-coverage _mocha",
     "lint": "biome lint --write",
     "postbuild:tsc": "tar -C types/src -cf - . | tar -xf - && rm -fr types",
-    "postpublish": "run-s clean",
-    "prepublishOnly": "run-s build",
+    "postpublish": "npm run clean",
+    "prepublishOnly": "npm run build",
     "start": "node --require esbuild-register src/index.ts",
-    "test": "run-p cover lint"
+    "test": "npm-run-all2 --parallel cover lint"
   },
   "types": "index.d.ts",
   "version": "1.0.6"
