@@ -48,7 +48,6 @@
     "clean": "rimraf coverage/ index.d.ts index.js lib/",
     "cover": "c8 --check-coverage _mocha",
     "lint": "biome lint --write",
-    "postbuild:tsc": "tar -C types/src -cf - . | tar -xf - && rm -fr types",
     "postpublish": "npm run clean",
     "prepublishOnly": "npm run build",
     "start": "node --require esbuild-register src/index.ts",
